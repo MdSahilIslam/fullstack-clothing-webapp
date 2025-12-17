@@ -24,7 +24,7 @@ function ProductGrid({ products, loading, error }) {
                     />
                   </div>
                   <h3 className="text-sm mb-2">{item.name}</h3>
-                  <p className="text-sm font-medium text-gray-500 tracking-tighter">$ {item.price}</p>
+                  <p className="text-sm font-medium text-gray-500 tracking-tighter">$ {item.price.toFixed(2)}</p>
                 </div>
               </Link>
             );

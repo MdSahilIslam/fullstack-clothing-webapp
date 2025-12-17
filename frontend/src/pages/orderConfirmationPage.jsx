@@ -54,7 +54,7 @@ function OrderConfirmationPage() {
                                     </p>
                                 </div>
                                 <div className="text-left ml-auto">
-                                    <p className="text-md">$ {item.price}</p>
+                                    <p className="text-md">$ {item.price.toFixed(2)}</p>
                                     <p className="text-sm text-gray-500"> Qty: {item.quantity}</p>
                                 </div>
                             </div>

@@ -208,14 +208,14 @@ function ProductDetails({productId}) {
                         <div>
                             <h2 className="text-xl md:text-2xl font-bold text-gray-600 mb-3">{selectedProduct[0]?.name}</h2>
                             <p className="text-gray-600 line-through mb-1 text-lg">{selectedProduct[0]?.originalPricer}</p>
-                            <p className="text-xl text-gray-800 mb-2">$ {selectedProduct[0]?.price}</p>
+                            <p className="text-xl text-gray-800 mb-2">$ {selectedProduct[0]?.price.toFixed(2)}</p>
                             <p className="text-gray-600 mb-4">{selectedProduct[0]?.description}</p>
 
                             <div className="mb-4">
                                 <p className="text-gray-700 mb-2">Color:</p>
                                 <div className="flex gap-2"> 
                                     {selectedProduct[0]?.colors.map((color,ind) => (
-                                        <button key={ind} onClick={() => {setItemColor(color)}} className={`h-8 w-8 rounded-full border-gray-500 cursor-pointer ${itemColor === color? "border-dotted border-white border-4":""}`}
+                                        <button key={ind} onClick={() => {setItemColor(color)}} className={`h-8 w-8 rounded-full border-gray-500 cursor-pointer ${itemColor === color? "border-solid color-border border-4":""}`}
                                         style={{backgroundColor : color.toLocaleLowerCase(),filter: "brightness(0.5)"}}></button>
                                     ))}
                                 </div>

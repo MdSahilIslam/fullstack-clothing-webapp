@@ -12,17 +12,17 @@ function Header() {
         let currentScroll = window.pageYOffset;
 
         if (currentScroll <= 0) {
-            head1.current.classList.remove("scroll-up")
+            head1.current?.classList.remove("scroll-up")
         }
 
-        if (currentScroll> lastScroll && !head1.current.classList.contains("scroll-down")) {
-            head1.current.classList.remove("scroll-up");
-            head1.current.classList.add("scroll-down")
+        if (currentScroll> lastScroll && !head1.current?.classList.contains("scroll-down")) {
+            head1.current?.classList.remove("scroll-up");
+            head1.current?.classList.add("scroll-down")
         };
 
-        if (currentScroll < lastScroll && head1.current.classList.contains("scroll-down")) {
-            head1.current.classList.add("scroll-up");
-            head1.current.classList.remove("scroll-down")
+        if (currentScroll < lastScroll && head1.current?.classList.contains("scroll-down")) {
+            head1.current?.classList.add("scroll-up");
+            head1.current?.classList.remove("scroll-down")
         };
         lastScroll = currentScroll
     })

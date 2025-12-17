@@ -50,18 +50,18 @@ function CollectionPages() {
         let currentScroll = window.pageYOffset;
 
         if (currentScroll <= 0) {
-            filter.current.classList.remove("scroll-up1")
+            filter.current?.classList.remove("scroll-up1")
         }
 
-        if (currentScroll > lastScroll && !filter.current.classList.contains("scroll-down1")) {
-            filter.current.classList.remove("scroll-up1");
-            filter.current.classList.add("scroll-down1");
+        if (currentScroll > lastScroll && !filter.current?.classList.contains("scroll-down1")) {
+            filter.current?.classList.remove("scroll-up1");
+            filter.current?.classList.add("scroll-down1");
             setIsSidebarOpen(false)
         };
 
-        if (currentScroll < lastScroll && filter.current.classList.contains("scroll-down1")) {
-            filter.current.classList.add("scroll-up1");
-            filter.current.classList.remove("scroll-down1");
+        if (currentScroll < lastScroll && filter.current?.classList.contains("scroll-down1")) {
+            filter.current?.classList.add("scroll-up1");
+            filter.current?.classList.remove("scroll-down1");
             setIsSidebarOpen(false)
         };
         lastScroll = currentScroll
@@ -84,7 +84,7 @@ function CollectionPages() {
                 </div>
                 <FilterSidebar/>
             </div>
-            <div className="flex-grow p-4">
+            <div className=" p-4">
                 <h2 className="text-2xl mb-4">ALL COLLECTION</h2>
 
                 {/*sort options */}

@@ -95,9 +95,9 @@ function Checkout() {
     }
   };
 
-  if(loading) {
-    return <p className="text-center">Loading...</p>
-  }
+    if(loading) {
+      return <p className="text-center">Loading...111</p>
+    }
 
   if(error) {
     return <p className="text-center">error: {error}</p>

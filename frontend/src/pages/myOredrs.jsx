@@ -63,10 +63,10 @@ function MyOrders() {
                                         <span className="w-full">{order.orderItems.length}</span>
                                     </td>
                                     <td className="p-2 sm:p-4  text-left font-medium">
-                                        <span className="w-full">${order.totalPrice}</span>
+                                        <span className="w-full">${order.totalPrice.toFixed(2)}</span>
                                     </td>
                                     <td className="p-2 sm:p-4 text-center">
-                                        {order.ispaid? <span className="text-green-900 block bg-green-200 p-1 rounded-lg text-sm">Paid</span>:<span className="text-red-900 block bg-red-200 p-1 rounded-lg text-sm">Pending</span>}
+                                        {order.isPaid? <span className="text-green-900 block bg-green-200 p-1 rounded-lg text-sm">Paid</span>:<span className="text-red-900 block bg-red-200 p-1 rounded-lg text-sm">Pending</span>}
                                     </td>
                                 </tr>
                             )):

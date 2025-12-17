@@ -21,7 +21,7 @@ function AddProductPage() {
     colors: [],
     collections: "",
     material: "",
-    gender: "",
+    gender: "Women",
     images: [
     ],
   });
@@ -168,8 +168,8 @@ function AddProductPage() {
             className="w-full border border-gray-300 rounded-md p-2 focus:outline-none"
             required
           >
-            <option value="Men">Men</option>
             <option value="Women">Women</option>
+            <option value="Men">Men</option>
             <option value="Unisex">Unisex</option>
             </select>
         </div>

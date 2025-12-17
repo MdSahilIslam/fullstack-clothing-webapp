@@ -19,7 +19,7 @@ function Login() {
   useEffect(() => {
     if(user) {
       if(cart?.products.length > 0 && guestId) {
-        dispatch(mergeCart({guestId})).then(
+        dispatch(mergeCart({guestId, user})).then(
           () => {
             navigate(isCheckoutRedirect? "/checkout" : "/")
           }

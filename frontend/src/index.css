@@ -37,4 +37,8 @@
   transform: translate3d(0, -450%, 0);
 }
 
+.color-border{
+  border-color: rgb(255, 78, 84);
+}
+
 

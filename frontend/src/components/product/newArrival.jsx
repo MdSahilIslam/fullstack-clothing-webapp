@@ -84,18 +84,18 @@ function NewArrival() {
             {newArrival.map((item,index) => (
                 <SwiperSlide key={index}>
             <div
-              className="min-w-[100%] sm:min-w-[50%] lg:min-w-[30%] relative"
+              className="min-w-full sm:min-w-[50%] lg:min-w-[30%] relative"
             >
               <Link to={`/products/${item._id}`}>
                 <img
                   src={item.images[0]?.url}
                   alt={item.images[0]?.altText || item.name}
-                  className="w-full h-[500px] object-cover rounded-lg"
+                  className="w-full h-125 object-cover rounded-lg"
                 />
                 <div className="absolute bottom-0 left-0 right-0 backdrop-blur-md text-white p-4 rounded-b-lg ">
                   <div>
                     <h4 className="font-medium">{item.name}</h4>
-                    <p className="mt-1">$ {item.price}</p>
+                    <p className="mt-1">$ {item.price.toFixed(2)}</p>
                   </div>
                 </div>
               </Link>

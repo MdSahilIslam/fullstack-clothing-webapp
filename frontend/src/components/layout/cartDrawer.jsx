@@ -1,13 +1,20 @@
 import { useNavigate } from "react-router-dom"
 import CartContents from "../cart/cartContents"
 import { IoMdClose } from "react-icons/io"
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
+import { useEffect } from "react";
+import { fetchCart } from "../../redux/slices/cartSlice";
 
 function CartDrawer({isOpen,toggleCartDrawer}) {
     const {user, guestId} = useSelector((state) => state.auth);
     const {cart} = useSelector((state) => state.cart);
     const userId = user? user.id: null; 
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        dispatch(fetchCart({user: user?.id, guestId}))
+    },[user, guestId, dispatch]);
     const handleCheckout = () => {
         if(!user){  
             navigate("/login?redirect=checkout")
@@ -17,7 +24,7 @@ function CartDrawer({isOpen,toggleCartDrawer}) {
         toggleCartDrawer()
     }
     return (
-        <div className={`fixed top-0 right-0 w-3/4 sm:w-1/2 md:w-[30rem] h-full bg-white shadow-lg transform transition-transform duration-300 flex flex-col z-50 ${
+        <div className={`fixed top-0 right-0 w-3/4 sm:w-1/2 md:w-120 h-full bg-white shadow-lg transform transition-transform duration-300 flex flex-col z-50 ${
             isOpen? "translate-x-0" : "translate-x-full"}
         }`}>
 

@@ -42,7 +42,7 @@ function ProductManagement() {
                                 <td className="p-4 whitespace-nowrap text-gray-700">
                                     {product.name}
                                 </td>
-                                <td className="p-4">${product.price}</td>
+                                <td className="p-4">${product.price.toFixed(2)}</td>
                                 <td className="p-4">{product.sku}</td>
                                 <td className="p-4">
                                     <Link to={`/admin/products/${product._id}/edit`}

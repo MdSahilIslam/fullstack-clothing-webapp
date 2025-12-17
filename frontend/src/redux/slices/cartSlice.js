@@ -13,10 +13,10 @@ const saveCartToLocalStorage = (cart) => {
 }
 
 //ASYNC THUNK FOR FETCHING Cart
-export const fetchCart = createAsyncThunk("cart/fetchCart",async ({userId, guestId}, {rejectWithValue}) =>  {
+export const fetchCart = createAsyncThunk("cart/fetchCart",async ({user, guestId}, {rejectWithValue}) =>  {
     try{
         const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/cart`,{
-            params: {userId, guestId}
+            params: {user, guestId}
         });
 
         return response.data
@@ -156,7 +156,7 @@ const cartSlice = createSlice({
             addCase(mergeCart.fulfilled, (state, action) => {
                 state.loading = false;
                 state.cart = action.payload;
-                saveCartToLocalStorage(action.payload)
+                saveCartToLocalStorage(action.payload);
             }).
             addCase(mergeCart.rejected, (state, action) => {
                 state.loading = false;
