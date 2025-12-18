@@ -30,7 +30,7 @@ route.post("/register",async (req,res) => {
             token:token})
         })
     }catch(err) {
-        res.status(500).send({msg: `Server err:${err}`})
+        res.status(500).send({message: `Server err:${err}`})
     }
 })
 
@@ -43,14 +43,14 @@ route.post("/login",async (req,res) => {
 
         //finding user by Email
         if (!user) {
-            return res.status(400).json({msg : "Invalid Credential!!"});
+            return res.status(400).json({message : "Invalid Credential!!"});
         }
 
         //macthing password
         const matchingPassword = await user.matchPassword(password);
 
         if (!matchingPassword) {
-            return res.status(400).json({msg : "Invalid Creadentilas!"})
+            return res.status(400).json({message : "Invalid Creadentilas!"})
         }
 
         //making jwt token
@@ -68,13 +68,13 @@ route.post("/login",async (req,res) => {
                 role : user.role,
                 
             },
-            msg:"Login successful",
+            message:"Login successful",
             token:token})
         })
 
 
     } catch(err) {
-        return res.status(500).json({msg : `Server Error: ${err}`})
+        return res.status(500).json({message : `Server Error: ${err}`})
     }
 })
 

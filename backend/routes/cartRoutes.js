@@ -77,7 +77,7 @@ route.post("/", async (req, res) => {
       return res.status(200).json( makingCart);
     }
   } catch (err) {
-    return res.status(500).json({ msg: `Server Error1: ${err}` });
+    return res.status(500).json({ message: `Server Error1: ${err}` });
   }
 });
 
@@ -89,7 +89,7 @@ route.put("/", async (req, res) => {
     const cart = await getCart(user, guestId);
 
     if (!cart) {
-      return res.status(404).json({ msg: "cart not exist" });
+      return res.status(404).json({ message: "cart not exist" });
     }
 
     const productIndex = cart.products.findIndex(
@@ -116,10 +116,10 @@ route.put("/", async (req, res) => {
         .status(200)
         .json( updatedCart );
     } else {
-      return res.status(404).json({ msg: "Product not found in cart" });
+      return res.status(404).json({ message: "Product not found in cart" });
     }
   } catch (err) {
-    return res.status(500).json({ msg: `Server Error: ${err}` });
+    return res.status(500).json({ message: `Server Error: ${err}` });
   }
 });
 
@@ -131,7 +131,7 @@ route.delete("/", async (req, res) => {
     const cart = await getCart(user, guestId);
 
     if (!cart) {
-      return res.status(404).json({ msg: "cart doesn't not exist!" });
+      return res.status(404).json({ message: "cart doesn't not exist!" });
     }
 
     const productIndex = cart.products.findIndex(
@@ -144,7 +144,7 @@ route.delete("/", async (req, res) => {
     if (productIndex > -1) {
       cart.products.splice(productIndex, 1);
     } else {
-      return res.status(404).json({ msg: "Product not found" });
+      return res.status(404).json({ message: "Product not found" });
     }
 
     cart.totalPrice = cart.products.reduce(
@@ -156,7 +156,7 @@ route.delete("/", async (req, res) => {
 
     return res.status(200).json( updatedCart );
   } catch (err) {
-    return res.status(500).json({ msg: `Product not found ${err}` });
+    return res.status(500).json({ message: `Product not found ${err}` });
   }
 });
 
@@ -169,11 +169,11 @@ route.get("/", async (req, res) => {
     if (cart) {
       return res.status(200).json(cart);
     } else {
-      return res.status(404).json({ msg: "Cart didn't found!!" });
+      return res.status(404).json({ message: "Cart didn't found!!" });
     }
   } catch (err) {
     console.error(err);
-    return res.status(500).json({ msg: `Server Error:  ${err}` });
+    return res.status(500).json({ message: `Server Error:  ${err}` });
   }
 });
 
@@ -187,7 +187,7 @@ route.post("/merge", protect, async (req, res) => {
 
     if (guestCart) {
       if (guestCart.products.length === 0) {
-        return res.status(404).json({ msg: "Guest Cart is empty" });
+        return res.status(404).json({ message: "Guest Cart is empty" });
       }
 
       if (userCart) {
@@ -220,7 +220,7 @@ route.post("/merge", protect, async (req, res) => {
           const deletedCart = await Cart.findOneAndDelete({ guestId });
           return res.status(200).json(cart)
         } catch (err) {
-            return res.status(500).json({msg : `Server Error: ${err}`})
+            return res.status(500).json({message : `Server Error: ${err}`})
         }
         
       } else {
@@ -233,7 +233,7 @@ route.post("/merge", protect, async (req, res) => {
     }
   } catch (err) {
     console.error(err);
-    return res.status(500).json({msg : `Serevr Error: ${err}`})
+    return res.status(500).json({message : `Serevr Error: ${err}`})
   }
 });
 

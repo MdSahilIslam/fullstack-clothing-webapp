@@ -54,7 +54,7 @@ function MyOrders() {
                                         <span className="w-full">#{order._id}</span>
                                     </td>
                                     <td className="p-2 sm:p-4   text-left font-medium">
-                                        <span className="w-full">{new Date(order.createdAt).toLocaleDateString()}{new Date(order.createdAt).toLocaleTimeString()}</span>
+                                        <span className="w-full">{new Date(order.createdAt).toLocaleDateString()} {new Date(order.createdAt).toLocaleTimeString()}</span>
                                     </td>
                                     <td className="p-2 sm:p-4  text-left font-medium">
                                         <span className="w-full">{order.shippingAddress.city},{order.shippingAddress.country}</span>

@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { registerUser } from "../redux/slices/auth";
 import { useDispatch, useSelector } from "react-redux";
 import { mergeCart } from "../redux/slices/cartSlice";
+import { BsEye, BsEyeSlash } from "react-icons/bs";
 
 function Register() {
   const [email, setEmail] = useState("");
@@ -11,26 +12,46 @@ function Register() {
   const [name, setName] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
-    const location = useLocation();
-    const {user, guestId, loading} = useSelector((state) => state.auth);
-    const {cart} = useSelector((state) => state.cart);
+  const location = useLocation();
+  const [show, setShow] = useState(false)
+  const {user, guestId, loading, error} = useSelector((state) => state.auth);
+  const {cart} = useSelector((state) => state.cart);
   
-    const redirect = new URLSearchParams(location.search).get("redirect") || "/";
-    const isCheckoutRedirect = redirect.includes("checkout");
-    
-    useEffect(() => {
-      if(user) {
-        if(cart?.products > 0 && guestId) {
-          dispatch(mergeCart({guestId, user})).then(
-            () => {
-              navigate(isCheckoutRedirect? "/checkout" : "/")
-            }
-          )   
-        }else{
+  const redirect = new URLSearchParams(location.search).get("redirect") || "/";
+  const isCheckoutRedirect = redirect.includes("checkout");
+  
+  useEffect(() => {
+    if(user) {
+      if(cart?.products > 0 && guestId) {
+        dispatch(mergeCart({guestId, user})).then(
+          () => {
             navigate(isCheckoutRedirect? "/checkout" : "/")
-        }
+          }
+        )   
+      }else{
+          navigate(isCheckoutRedirect? "/checkout" : "/")
       }
-    },[user, guestId, cart, navigate, dispatch, isCheckoutRedirect])
+    }
+  },[user, guestId, cart, navigate, dispatch, isCheckoutRedirect]);
+
+  const toggleShow = () => {
+    setShow(!show)
+  }
+
+  let Message= ""
+
+  if(error) {
+    if (error.includes("Server err:ValidationError: password: Path `password`") ) {
+      Message = "Minimum password character 6"
+    } 
+    if (error.includes("Server err:MongoServerError: E11000 duplicate key error collection: Cosmos.users index: email_1 dup")){
+      Message = "Email alredy exist"
+    }
+    
+    
+  }
+
+
 
   const handleSubmit = (e) => {
       e.preventDefault();
@@ -63,7 +84,7 @@ function Register() {
                 value = {name}
                 onChange = {(e) => {setName(e.target.value)}}
                 placeholder="Enter you Name"
-                className="w-full  p-2 border-1 border-gray-400 rounded"
+                className="w-full  p-2 border border-gray-400 rounded"
               />
             </div>
             <div className="w-full mb-4 text-left">
@@ -75,21 +96,28 @@ function Register() {
                 value = {email}
                 onChange = {(e) => {setEmail(e.target.value)}}
                 placeholder="Enter you Email"
-                className="w-full  p-2 border-1 border-gray-400 rounded"
+                className="w-full  p-2 border border-gray-400 rounded"
               />
             </div>
-            <div className="w-full mb-4 text-left">
+            <div className="w-full mb-4 text-left relative">
               <label htmlFor="password" className="block text-sm font-bold">
                 Password
               </label>
               <input
-                type="password"
+                type={show? "text":"password"}
                 value={password}
                 onChange={(e) => {setPassword(e.target.value)}}
-                placeholder="Enter Password"
-                className="w-full p-2 border-1 border-gray-400 rounded"
+                placeholder="Min Length 6 digit"
+                className="w-full p-2 border border-gray-400 rounded"
               />
+              <div className="absolute text-xl top-8 right-2.5" onClick={toggleShow}>
+                {show? <BsEyeSlash />:<BsEye />}
+              </div>
             </div>
+            {
+              error? <div className="text-[0.9rem] mb-3 border bg-red-500/50 rounded-md">{Message}</div>: null
+            }
+            
             <div className="w-full mb-5">
               <button
                 type="submit"
@@ -110,7 +138,7 @@ function Register() {
 
         <div className="hidden w-1/2 md:block h-full">
             <div className="h-full flex flex-col justify-center">
-            <img src={registerImage} alt="Login Image" className="w-full h-[600px] object-cover "/>
+            <img src={registerImage} alt="Login Image" className="w-full h-150 object-cover "/>
             </div>
         </div>
       </div>

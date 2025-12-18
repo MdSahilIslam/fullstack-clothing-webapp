@@ -23,7 +23,7 @@ const upload = multer({storage});
 route.post("/",upload.single("image"),async (req, res) => {
     try{
         if(!req.file) {
-            return res.status(404).json({msg : "No file uploaded!!"})
+            return res.status(404).json({message : "No file uploaded!!"})
         }
         //function to upload the stream into cloudinary
         const streamUpload = (fileBuffer) => {
@@ -52,7 +52,7 @@ route.post("/",upload.single("image"),async (req, res) => {
         return res.json({imageUrl : result.secure_url})
     }catch(err){
         console.error(err);
-        return res.status(500).json({msg : `Internal server error: ${err}`})
+        return res.status(500).json({message : `Internal server error: ${err}`})
     }
 })
 

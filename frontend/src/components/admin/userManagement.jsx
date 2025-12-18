@@ -2,12 +2,19 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { createUser, deleteUser, fetchAllUsers, updateUser } from "../../redux/slices/adminSlice";
+import { BsEye, BsEyeSlash } from "react-icons/bs";
 
 function UserManagement() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [show, setShow] = useState(false)
   const {users, loading, error} = useSelector((state) => state.admin);
   const {user} = useSelector((state) => state.auth);
+
+  const toggleShow = () => {
+    setShow(!show)
+  }
+
 
   useEffect(() => {
     if(user && user.role !== "admin") {
@@ -85,18 +92,21 @@ function UserManagement() {
               required
             />
           </div>
-          <div className="mb-4">
+          <div className="mb-4 relative">
             <label htmlFor="name" className="text-gray-700 block">
               Password
             </label>
             <input
-              type="password"
+              type={show? "text":"password"}
               name="password"
               value={formData.password}
               onChange={handleChange}
               className="w-full p-2 border rounded"
               required
             />
+            <div className="absolute text-xl top-8.75 right-2.5" onClick={toggleShow}>
+                {show? <BsEyeSlash />:<BsEye />}
+            </div>
           </div>
           <div className="mb-4">
             <label htmlFor="name" className="text-gray-700 block">

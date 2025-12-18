@@ -13,7 +13,7 @@ route.post("/",protect,async (req, res) => {
     const {checkoutItems, shippingAddress, paymentMethod, totalPrice} = req.body
 
     if (!checkoutItems || checkoutItems.length === 0) {
-        return res.status(404).status({msg : "no Items in checkout"})
+        return res.status(404).status({message : "no Items in checkout"})
     };
 
     try{
@@ -31,7 +31,7 @@ route.post("/",protect,async (req, res) => {
     }catch(err){
         console.error(err);
 
-        return res.status(500).json({msg : `Server error: ${err}`})
+        return res.status(500).json({message : `Server error: ${err}`})
     }
 })
 
@@ -44,7 +44,7 @@ route.put("/:id/pay",protect,async (req, res) => {
         const checkout = await Checkout.findById(req.params.id);
 
         if(!checkout) {
-            return res.status(404).json({msg : "chcekout not found"})
+            return res.status(404).json({message : "chcekout not found"})
         }
 
         if(paymentStatus === "paid") {
@@ -57,11 +57,11 @@ route.put("/:id/pay",protect,async (req, res) => {
 
             return res.status(200).json(checkout)
         }else{
-            return res.status(400).json({msg : "Invalid Payment Status"})
+            return res.status(400).json({message : "Invalid Payment Status"})
         }
     }catch(err){
         console.error(err)
-        return res.status(500).json({msg : ` Server Error: ${err}`})
+        return res.status(500).json({message : ` Server Error: ${err}`})
     }
 })
 
@@ -72,7 +72,7 @@ route.post("/:id/finalize",protect, async (req, res) => {
         const checkout = await Checkout.findById(req.params.id);
 
         if(!checkout) {
-            return res.status(404).json({ msg : "Checkout not found"})
+            return res.status(404).json({ message : "Checkout not found"})
         }
 
         if (checkout.isPaid && !checkout.isFinalized) {
@@ -96,13 +96,13 @@ route.post("/:id/finalize",protect, async (req, res) => {
             await Cart.findOneAndDelete({user : checkout.user});
             return res.status(200).json(finalOrder)
         }else if(checkout.isFinalized) {
-            return res.status(400).json({msg : "Checkout alredy finalized"})
+            return res.status(400).json({message : "Checkout alredy finalized"})
         }else{
-            return res.status(400).json({msg : "Checkout is Not Paid"})
+            return res.status(400).json({message : "Checkout is Not Paid"})
         }
     }catch(err){
         console.error(err)
-        return res.status(500).json({msg : `Server Error ;  ${err}`})
+        return res.status(500).json({message : `Server Error ;  ${err}`})
     }
 });
 

@@ -9,13 +9,13 @@ route.get("/", protect, admin, async (req, res) => {
     try{
         const users = await User.find({});
         if(users.length === 0) {
-            return res.json({msg : "No user found!!"})
+            return res.json({message : "No user found!!"})
         }
 
         return res.json(users)
     }catch(err){
         console.error(err);
-        return res.status(500).json({msg : `Server Error: ${err}`})
+        return res.status(500).json({message : `Server Error: ${err}`})
     }
 })
 
@@ -28,7 +28,7 @@ route.post("/", protect, admin, async (req, res) => {
         let user = await User.findOne({email});
 
         if(user) {
-            return res.json({mag : "Email alredy exists"});
+            return res.json({message : "Email alredy exists"});
         }
         user = new User({
             name,
@@ -42,7 +42,7 @@ route.post("/", protect, admin, async (req, res) => {
         return res.status(201).json(user)
     }catch(err){
         console.error(err)
-        return res.status(500).json({msg : `Server Error: ${err}`})
+        return res.status(500).json({message : `Server Error: ${err}`})
     }
 })
 
@@ -61,11 +61,11 @@ route.put("/:id", protect, admin, async (req, res) => {
             await user.save();
             return res.status(200).json(user)
         }else{
-            return res.status(404).json({msg : "User not found"})
+            return res.status(404).json({message : "User not found"})
         } 
     }catch(err){
         console.error(err)
-        return res.status(500).json({msg : `Server Error: ${err}`})
+        return res.status(500).json({message : `Server Error: ${err}`})
     }
 });
 
@@ -77,13 +77,13 @@ route.delete("/:id", protect, admin, async (req, res) => {
         const user = await User.findById(req.params.id);
 
         if(!user) {
-            return res.status(404).json({msg : "User not found"})
+            return res.status(404).json({message : "User not found"})
         }
 
         await User.deleteOne({_id : req.params.id});
-        return res.status(200).json({msg : "User deleted successfully"})
+        return res.status(200).json({message : "User deleted successfully"})
     }catch(err){
-        return res.status(500).json({msg : `sERVER eRROR: ${err}`})
+        return res.status(500).json({message : `Server Error: ${err}`})
     }
 })
 

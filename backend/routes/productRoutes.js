@@ -56,7 +56,7 @@ route.post("/",protect,admin,async (req,res) => {
         
 
     }catch(err) {
-        return res.status(500).json({msg : `server Error: ${err}`})
+        return res.status(500).json({message : `server Error: ${err}`})
     }
 });
 
@@ -109,15 +109,15 @@ route.put("/:id",protect,admin,async (req,res) => {
             
             const updatedProduct = await product.save();
             
-            return res.status(202).json({msg: "Product Updated successsfully",
+            return res.status(202).json({message: "Product Updated successsfully",
                 updatedProduct
             })
 
         } else {
-            return res.status(403).json({msg : "Product not found"})
+            return res.status(403).json({message : "Product not found"})
         }
     } catch(err) {
-        return res.status(500).json({msg: `Server error: ${err}`})
+        return res.status(500).json({message: `Server error: ${err}`})
     }
 })
 
@@ -127,14 +127,14 @@ route.delete("/:id",protect,admin,async (req , res) => {
         const product = await Product.findById(req.params.id);
         if(product) {
             const deletedProduct = await product.deleteOne({_id:req.params.id});
-            return res.status(200).json({msg  : "Product deleted successfully",
+            return res.status(200).json({message  : "Product deleted successfully",
                 deletedProduct
             })
         }else{
-            return res.status(404).json({msg:"Product didn't found"})
+            return res.status(404).json({message:"Product didn't found"})
         }
     }catch(err) {
-        return res.status(500).json({msg:`Server Error: ${err}`})
+        return res.status(500).json({message:`Server Error: ${err}`})
     }
 });
 
@@ -212,7 +212,7 @@ route.get("/", async (req, res) => {
         return res.status(200).json({ product })
 
     }catch(err){
-        return res.status(500).json({msg: `Server Error: ${err}`})
+        return res.status(500).json({message: `Server Error: ${err}`})
     }
 })
 
@@ -223,11 +223,11 @@ route.get("/best-seller",async (req, res) => {
         if(product) {
             return res.json(product);
         }else{
-            return res.status(404).json({msg : "Best-seller not found"})
+            return res.status(404).json({message : "Best-seller not found"})
         }
 
     }catch(err){
-        return res.status(500).json({msg : `Server Error ${err}`})
+        return res.status(500).json({message : `Server Error ${err}`})
     }
 })
 
@@ -238,10 +238,10 @@ route.get("/new-arrival", async (req, res) =>  {
         if(newArrival) {
             return res.json(newArrival);
         }else{
-            return res.status(404).json({msg : "Product not found"});
+            return res.status(404).json({message : "Product not found"});
         }
     }catch(err){
-        return res.status(500).json({msg : `Server Error: ${err}`})
+        return res.status(500).json({message : `Server Error: ${err}`})
     }
 })
 
@@ -251,10 +251,10 @@ route.get("/:id",async (req, res) => {
         if(product) {
             return res.json(product);
         }else{
-            return res.status(404).json({msg:"Product not found"})
+            return res.status(404).json({message:"Product not found"})
         }
     }catch(err){
-        return res.status(500).json({msg : `Server error: ${err}`})
+        return res.status(500).json({message : `Server error: ${err}`})
     }
 })
 
@@ -264,7 +264,7 @@ route.get("/similar/:id",async (req,res) => {
         const product = await Product.find({_id: req.params.id},{category:1,gender:1});
 
         if(!product) {
-            return res.status(404).json({msg : "Product not found"})
+            return res.status(404).json({message : "Product not found"})
         };
 
         const similarProducts = await Product.find({
@@ -276,7 +276,7 @@ route.get("/similar/:id",async (req,res) => {
         return res.json(similarProducts)
     }catch(err) {
         console.error(err)
-        return res.status(500).json({msg : `Server Error: ${err}`})
+        return res.status(500).json({message : `Server Error: ${err}`})
     }
 })
 module.exports = {

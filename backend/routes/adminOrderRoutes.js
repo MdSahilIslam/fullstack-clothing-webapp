@@ -10,13 +10,13 @@ route.get("/", protect, admin,  async (req, res) => {
         const orders = await Order.find({}).populate("user","name email");
 
         if(orders.length === 0) {
-            return res.status(404).json({msg : "Order not found"})
+            return res.status(404).json({message : "Order not found"})
         }
 
         return res.status(200).json(orders)
     }catch(err){
         console.error(err)
-        return res.status(500).json({msg : `Server Error: ${err}`})
+        return res.status(500).json({message : `Server Error: ${err}`})
     }
 });
 
@@ -28,7 +28,7 @@ route.put("/:id", protect, admin, async (req, res) => {
 
         const order = await Order.findById(req.params.id).populate("user", "name email");
         if(!order) {
-            return res.status(404).json({msg : "Order Not Found!!"})
+            return res.status(404).json({message : "Order Not Found!!"})
         }
 
         order.status = status || order.status;
@@ -39,7 +39,7 @@ route.put("/:id", protect, admin, async (req, res) => {
         return res.status(200).json(order)
     }catch(err) {
         console.error(err);
-        return res.status(500).json({msg : `Server Error: ${err}`})
+        return res.status(500).json({message : `Server Error: ${err}`})
     }
 
 })
@@ -52,13 +52,13 @@ route.delete("/:id", protect, admin, async (req, res) => {
 
         if(order) {
             await order.deleteOne();
-            return res.status(200).json({msg : "Order Deleted Successfully"})
+            return res.status(200).json({message : "Order Deleted Successfully"})
         }else{
-            return res.status(404).json({msg : "Order not found!!"})
+            return res.status(404).json({message : "Order not found!!"})
         }
     }catch(err){
         console.error(err);
-        return res.status(500).json({msg : `Server Error: ${err}`})
+        return res.status(500).json({message : `Server Error: ${err}`})
     }
 })
 

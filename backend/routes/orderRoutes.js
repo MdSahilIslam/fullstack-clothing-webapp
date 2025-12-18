@@ -12,7 +12,7 @@ route.get("/my-orders",protect, async (req, res) => {
         return res.status(200).json(orders)
     }catch(err){
         console.error(err);
-        return res.status(500).json({msg : `Server Error: ${err}`})
+        return res.status(500).json({message : `Server Error: ${err}`})
     }
 });
 
@@ -22,13 +22,13 @@ route.get("/:id",protect, async (req, res) => {
         const order = await Order.findById(req.params.id).populate("user","name email")
         
         if(!order) {
-            return  res.status(404).json({msg : "Order not found"})
+            return  res.status(404).json({message : "Order not found"})
         };
 
         return res.status(200).json(order)
     }catch(err){
         console.error(err);
-        return res.status(500).json({msg : `Server Error: ${err}`})
+        return res.status(500).json({message : `Server Error: ${err}`})
     }
 })
 

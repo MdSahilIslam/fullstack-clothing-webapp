@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import {useDispatch, useSelector} from "react-redux"
 import { loginUser } from "../redux/slices/auth";
 import { mergeCart } from "../redux/slices/cartSlice";
+import { BsEye, BsEyeSlash } from "react-icons/bs";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -11,7 +12,8 @@ function Login() {
   const dispatch = useDispatch()
   const navigate = useNavigate();
   const location = useLocation();
-  const {user, guestId, loading} = useSelector((state) => state.auth);
+  const [show, setShow] = useState(false)
+  const {user, guestId, loading, error} = useSelector((state) => state.auth);
   const {cart} = useSelector((state) => state.cart);
 
   const redirect = new URLSearchParams(location.search).get("redirect") || "/";
@@ -28,7 +30,11 @@ function Login() {
           navigate(isCheckoutRedirect? "/checkout" : "/")
       }
     }
-  },[user, guestId, cart, navigate, dispatch, isCheckoutRedirect])
+  },[user, guestId, cart, navigate, dispatch, isCheckoutRedirect]);
+
+  const toggleShow = () => {
+    setShow(!show)
+  }
 
   const handleSubmitLogin = (e) => {
         e.preventDefault()
@@ -61,21 +67,27 @@ function Login() {
                 value = {email}
                 onChange = {(e) => {setEmail(e.target.value)}}
                 placeholder="Enter you Email"
-                className="w-full  p-2 border-1 border-gray-400 rounded"
+                className="w-full  p-2 border border-gray-400 rounded"
               />
             </div>
-            <div className="w-full mb-4 text-left">
+            <div className="w-full mb-4 text-left relative">
               <label htmlFor="password" className="block text-sm font-bold">
                 Password
               </label>
               <input
-                type="password"
+                type={show? "text":"password"}
                 value={password}
                 onChange={(e) => {setPassword(e.target.value)}}
                 placeholder="Enter Password"
-                className="w-full p-2 border-1 border-gray-400 rounded"
+                className="w-full p-2 border border-gray-400 rounded"
               />
+              <div className="absolute text-xl top-8 right-2.5" onClick={toggleShow}>
+                {show? <BsEyeSlash />:<BsEye />}
+              </div>
             </div>
+            {
+              error? <div className="text-[0.9rem] mb-3 border bg-red-500/50 rounded-md">Invalid Email or Password</div>: null
+            }
             <div className="w-full mb-5">
               <button
                 type="submit"
@@ -96,7 +108,7 @@ function Login() {
 
         <div className="hidden w-1/2 md:block h-full">
             <div className="h-full flex flex-col justify-center">
-            <img src={loginImage} alt="Login Image" className="w-full h-[600px] object-cover "/>
+            <img src={loginImage} alt="Login Image" className="w-full h-150 object-cover "/>
             </div>
         </div>
       </div>
